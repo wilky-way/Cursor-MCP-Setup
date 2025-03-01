@@ -1,0 +1,55 @@
+{
+    "mcpServers": {
+      "postgres": {
+        "command": "docker",
+        "args": [
+          "run",
+          "-i",
+          "--rm",
+          "mcp/postgres",
+          "postgresql://admin:password123@host.docker.internal:5432/personal_website"
+        ]
+      },
+      "git": {
+        "command": "docker",
+        "args": [
+          "run",
+          "--rm",
+          "-i",
+          "--mount",
+          "type=bind,src=/Users/wilky/Developer/Projects/wilky,dst=/projects/wilky",
+          "mcp/git"
+        ]
+      },
+      "puppeteer": {
+        "command": "docker",
+        "args": [
+          "run", 
+          "-i", 
+          "--rm", 
+          "--init", 
+          "-p", 
+          "5173:5173", 
+          "--add-host=host.docker.internal:host-gateway", 
+          "-e", 
+          "DOCKER_CONTAINER=true", 
+          "mcp/puppeteer"
+        ]
+      },
+      "brave-search": {
+        "command": "docker",
+        "args": [
+          "run",
+          "-i",
+          "--rm",
+          "mcp/brave-search"
+        ],
+        "env": {
+          "BRAVE_API_KEY": ""
+        },
+        "alwaysAllow": [
+          "brave_web_search"
+        ]
+      }
+    }
+  }
